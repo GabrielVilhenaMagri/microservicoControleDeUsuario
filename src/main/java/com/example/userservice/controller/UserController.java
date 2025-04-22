@@ -4,8 +4,7 @@ import com.example.userservice.repository.UserRepository;
 import com.example.userservice.service.UserService;
 import com.example.userservice.model.User;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,15 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final UserService userService;
-    private final UserRepository userRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
-    // Injeção via construtor
-    public UserController(UserRepository userRepository, UserService userService) {
-        this.userRepository = userRepository;
-        this.userService = userService;
-    }
 
     @PostMapping("/create")
     public ResponseEntity<?> registerUser(@RequestBody @Valid User user) {
